@@ -12,7 +12,16 @@ fetch("/api/transaction")
     populateTotal();
     populateTable();
     populateChart();
+    console.log("hi")
+console.log(transactions);
+    // deleteRow();
   });
+
+  function deleteRow(id) {
+    //when button is pressed
+    //grab id
+    //use mongodb route to delete row
+  };
 
 function populateTotal() {
   // reduce transaction amounts to a single total value
@@ -32,7 +41,7 @@ function populateTable() {
     // create and populate a table row
     let tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${transaction.name}</td>
+      <td>${transaction.name} <button id="sub-btn"><i></i> Delete Transaction</button> <button id="sub-btn"><i></i> Update Transaction</button></td>
       <td>${transaction.value}</td>
     `;
 
@@ -151,3 +160,4 @@ document.querySelector("#add-btn").onclick = function() {
 document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
+
