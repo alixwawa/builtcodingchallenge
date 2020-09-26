@@ -1,19 +1,34 @@
-# builtcodingchallenge
+# Unit 18 PWA Homework: Online/Offline Budget Trackers
 
-- Node.js code challenge
+## Description 
 
-- Create a GitHub repository & initialize the repo
+The user will be able to add expenses and deposits to their budget with or without a connection. When entering transactions offline, they should populate the total when brought back online.
 
-- Technologies:
-- Typescript
-- Express
-- TypeOrm
-- Jest
-- Docker
-- JOI
+Offline Functionality:
 
-- Acceptance Criteria:
-- Create CRUD endpoints for a “Budget Item” using TypeORM (improvise on the fields, but want to see some critical thinking)
-- Set up an example leveraging JOI schemas for validation & serialization
-- Create an example query/migration using TypeORM
-- Write and show examples of tests written for you endpoints or functions using Jest
+Enter deposits offline
+
+Enter expenses offline
+
+When brought back online:
+
+Offline entries should be added to tracker.
+
+## User Story
+
+As someone who can't manage their expenses very well I'd like to be able to track my expenses anywhere I go, regardless of the presence of internet connectivity.
+
+### App screenshot
+
+![Photo](public/icons/screenshot.png)   
+
+
+## Repository
+
+- [Project Repo](https://github.com/alixwawa/budgettracker)
+- [Budget App](https://alixbudgettracker.herokuapp.com)
+
+## GitHub
+
+
+- [GitHub Profile](https://github.com/alixwawa)
