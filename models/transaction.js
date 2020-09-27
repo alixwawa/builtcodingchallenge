@@ -6,12 +6,10 @@ const transactionSchema = new Schema(
   {
     name: {
       type: String,
-      trim: true,
-      required: "Enter a name for transaction"
+      trim: true
     },
     value: {
-      type: Number,
-      required: "Enter an amount"
+      type: Number
     },
     date: {
       type: Date,

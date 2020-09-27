@@ -50,18 +50,41 @@ router.delete("/api/deletetransaction", (req, res) => {
 });
 
 // Delete route
-router.put("/api/updatetransaction", (req, res) => {
+router.put("/api/updatetransaction/:id", (req, res) => {
   console.log("update")
   console.log(req.params);
+  console.log(req.body);
+  const id = req.params.id
   if (req.body.name && !req.body.value) {
     console.log("just name")
-    Transaction.findByIdAndUpdate(req.body._id, {$set: req.body.name})
+    Transaction.findByIdAndUpdate({_id: id}, {$set: req.body})
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+      console.log(dbTransaction)
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
   } else if (!req.body.name && req.body.value ) {
     console.log("just value")
-    Transaction.findByIdAndUpdate(req.body._id, {$set: {value: req.body.value}})
+    Transaction.findByIdAndUpdate({_id: id}, {$set: req.body})
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+      console.log(dbTransaction)
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
   } else if (req.body.name && req.body.value) {
     console.log("name and value")
-    Transaction.findByIdAndUpdate(req.body._id, {$set: {name: req.body.name, value: req.body.value}})
+    Transaction.findByIdAndUpdate({_id: id}, {$set: req.body})
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+      console.log(dbTransaction)
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
   } else {
     console.log("something went wrong")
   }

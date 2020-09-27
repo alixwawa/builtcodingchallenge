@@ -61,42 +61,40 @@ async function mydelFunction(value) {
 
 //update function 
 function myupdateFunction(value) {
+  let id = value
   let updateWhat = prompt("would you like to change the name, the value, or both?")
   switch (updateWhat) {
     case "name":
         var updateName = prompt("would you like to change the name to?");
         $.ajax({
           type: "PUT",
-          url: "/api/updatetransaction",
+          url: "/api/updatetransaction/" + id,
           data: {
-            _id: value,
             name: updateName
           },
-        });
+        }).then(location.reload());;
       break;
     case "value":
         var updateValue = prompt("would you like to change the value to?");
         $.ajax({
           type: "PUT",
-          url: "/api/updatetransaction",
+          url: "/api/updatetransaction/" + id,
           data: {
-            _id: value,
             value: updateValue
           },
-        });
+        }).then(location.reload());;
       break;
     case "both":
         var updatebothName = prompt("would you like to change the name to?")
         var updatebothValue = prompt("would you like to change the value to?")
         $.ajax({
           type: "PUT",
-          url: "/api/updatetransaction",
+          url: "/api/updatetransaction/" + id,
           data: {
-            _id: value,
             name: updatebothName,
             value: updatebothValue
           },
-        });
+        }).then(location.reload());
       break;
     default:
       console.log("didn't work");
