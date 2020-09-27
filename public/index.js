@@ -12,16 +12,9 @@ fetch("/api/transaction")
     populateTotal();
     populateTable();
     populateChart();
-    console.log("hi")
-console.log(transactions);
-    // deleteRow();
+
   });
 
-  function deleteRow(id) {
-    //when button is pressed
-    //grab id
-    //use mongodb route to delete row
-  };
 
 function populateTotal() {
   // reduce transaction amounts to a single total value
@@ -37,17 +30,35 @@ function populateTable() {
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
+  
+
   transactions.forEach(transaction => {
     // create and populate a table row
+    console.log(transaction)
     let tr = document.createElement("tr");
+    //added delete and update function buttons
     tr.innerHTML = `
-      <td>${transaction.name} <button id="sub-btn"><i></i> Delete Transaction</button> <button id="sub-btn"><i></i> Update Transaction</button></td>
+      <td>${transaction.name} 
+      <button type="button" onclick="mydelFunction(value)" value="${transaction._id}" id="del-btn"><i></i> Delete Transaction</button> 
+      <button type="button" onclick="myupdateFunction(value)" value="${transaction._id}" id="update-btn"><i></i> Update Transaction</button></td>
       <td>${transaction.value}</td>
     `;
 
     tbody.appendChild(tr);
   });
 }
+
+//delete function 
+async function mydelFunction(value) {
+  $.ajax({
+    type: "DELETE",
+    url: "/api/deletetransaction",
+    data: {
+      _id: value,
+    },
+  }).then(location.reload());
+}
+
 
 function populateChart() {
   // copy array and reverse it
@@ -160,4 +171,6 @@ document.querySelector("#add-btn").onclick = function() {
 document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
+
+
 

@@ -34,11 +34,14 @@ router.get("/api/transaction", (req, res) => {
     });
 });
 
-Delete
-router.delete("/api/transaction", (req, res) => {
-  Transaction.deleteOne(req)
+// Delete route
+router.delete("/api/deletetransaction", (req, res) => {
+  // console.log("delete")
+  // console.log(req.body)
+  Transaction.deleteOne(req.body)
     .then(dbTransaction => {
-      res.json(dbTransaction);
+      
+      console.log("done")
     })
     .catch(err => {
       res.status(404).json(err);
