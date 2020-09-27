@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { update } = require("../models/transaction.js");
 const Transaction = require("../models/transaction.js");
 
 //create
@@ -46,6 +47,24 @@ router.delete("/api/deletetransaction", (req, res) => {
     .catch(err => {
       res.status(404).json(err);
     });
+});
+
+// Delete route
+router.put("/api/updatetransaction", (req, res) => {
+  console.log("update")
+  console.log(req.params);
+  if (req.body.name && !req.body.value) {
+    console.log("just name")
+    Transaction.findByIdAndUpdate(req.body._id, {$set: req.body.name})
+  } else if (!req.body.name && req.body.value ) {
+    console.log("just value")
+    Transaction.findByIdAndUpdate(req.body._id, {$set: {value: req.body.value}})
+  } else if (req.body.name && req.body.value) {
+    console.log("name and value")
+    Transaction.findByIdAndUpdate(req.body._id, {$set: {name: req.body.name, value: req.body.value}})
+  } else {
+    console.log("something went wrong")
+  }
 });
 
 module.exports = router;

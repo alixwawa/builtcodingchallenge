@@ -30,11 +30,11 @@ function populateTable() {
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
-  
+
 
   transactions.forEach(transaction => {
     // create and populate a table row
-    console.log(transaction)
+    // console.log(transaction)
     let tr = document.createElement("tr");
     //added delete and update function buttons
     tr.innerHTML = `
@@ -57,6 +57,51 @@ async function mydelFunction(value) {
       _id: value,
     },
   }).then(location.reload());
+}
+
+//update function 
+function myupdateFunction(value) {
+  let updateWhat = prompt("would you like to change the name, the value, or both?")
+  switch (updateWhat) {
+    case "name":
+        var updateName = prompt("would you like to change the name to?");
+        $.ajax({
+          type: "PUT",
+          url: "/api/updatetransaction",
+          data: {
+            _id: value,
+            name: updateName
+          },
+        });
+      break;
+    case "value":
+        var updateValue = prompt("would you like to change the value to?");
+        $.ajax({
+          type: "PUT",
+          url: "/api/updatetransaction",
+          data: {
+            _id: value,
+            value: updateValue
+          },
+        });
+      break;
+    case "both":
+        var updatebothName = prompt("would you like to change the name to?")
+        var updatebothValue = prompt("would you like to change the value to?")
+        $.ajax({
+          type: "PUT",
+          url: "/api/updatetransaction",
+          data: {
+            _id: value,
+            name: updatebothName,
+            value: updatebothValue
+          },
+        });
+      break;
+    default:
+      console.log("didn't work");
+      break;
+  }
 }
 
 
@@ -86,14 +131,14 @@ function populateChart() {
 
   myChart = new Chart(ctx, {
     type: 'line',
-      data: {
-        labels,
-        datasets: [{
-            label: "Total Over Time",
-            fill: true,
-            backgroundColor: "#6666ff",
-            data
-        }]
+    data: {
+      labels,
+      datasets: [{
+        label: "Total Over Time",
+        fill: true,
+        backgroundColor: "#6666ff",
+        data
+      }]
     }
   });
 }
@@ -131,7 +176,7 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
-  
+
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
@@ -141,34 +186,34 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
-    return response.json();
-  })
-  .then(data => {
-    if (data.errors) {
-      errorEl.textContent = "Missing Information";
-    }
-    else {
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data.errors) {
+        errorEl.textContent = "Missing Information";
+      }
+      else {
+        // clear form
+        nameEl.value = "";
+        amountEl.value = "";
+      }
+    })
+    .catch(err => {
+      // fetch failed, so save in indexed db
+      saveRecord(transaction);
+
       // clear form
       nameEl.value = "";
       amountEl.value = "";
-    }
-  })
-  .catch(err => {
-    // fetch failed, so save in indexed db
-    saveRecord(transaction);
-
-    // clear form
-    nameEl.value = "";
-    amountEl.value = "";
-  });
+    });
 }
 
-document.querySelector("#add-btn").onclick = function() {
+document.querySelector("#add-btn").onclick = function () {
   sendTransaction(true);
 };
 
-document.querySelector("#sub-btn").onclick = function() {
+document.querySelector("#sub-btn").onclick = function () {
   sendTransaction(false);
 };
 
