@@ -7,7 +7,7 @@ const compression = require("compression");
 
 const app = express();
 
-app.use(logger("dev"));
+// app.use(logger("dev"));
 
 app.use(compression());
 app.use(express.urlencoded({ extended: true }));

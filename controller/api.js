@@ -1,10 +1,36 @@
 const router = require("express").Router();
 // const { update } = require("../models/transaction.js");
 const Transaction = require("../models/transaction.js");
+const Joi = require("joi");
 
+const schema = Joi.object({
+  name: Joi.string().trim().required(),
+  value: Joi.number().min(1).max(10).required(),
+  date: Joi.required()
+});
 
 //create
 router.post("/api/transaction", ({body}, res) => {
+  // console.log(Joi)
+
+
+  const { error, value } = schema.validate(body)
+  console.log(error)
+  console.log(value)
+
+  // schema.validate(body, (err, result) => {
+  //   console.log("hellooo")
+  //   if (err) {
+  //     console.log("err")
+  //     // console.log(err);
+  //     // res.send('an error has occured');
+  //   } else {
+  //     console.log("result")
+  //     // console.log(result);
+  //     // res.send('successfully posted data')
+  //   }
+  // })
+
   Transaction.create(body)
     .then(dbTransaction => {
       res.json(dbTransaction);
@@ -16,6 +42,24 @@ router.post("/api/transaction", ({body}, res) => {
 
 //create
 router.post("/api/transaction/bulk", ({body}, res) => {
+// console.log(body)
+
+const { error, value } = schema.validate(body)
+console.log(error)
+console.log(value)
+
+// schema.validate(body, (err, result) => {
+//   console.log("hellooo")
+//   if (err) {
+//     console.log("err")
+//     // console.log(err);
+//     // res.send('an error has occured');
+//   } else {
+//     console.log("result")
+//     // console.log(result);
+//     // res.send('successfully posted data')
+//   }
+//   })
   Transaction.insertMany(body)
     .then(dbTransaction => {
       res.json(dbTransaction);
