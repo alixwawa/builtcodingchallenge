@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { update } = require("../models/transaction.js");
+// const { update } = require("../models/transaction.js");
 const Transaction = require("../models/transaction.js");
+
 
 //create
 router.post("/api/transaction", ({body}, res) => {
@@ -90,6 +91,10 @@ router.put("/api/updatetransaction/:id", (req, res) => {
   } else {
     console.log("something went wrong")
   }
+});
+
+router.get("/test", async (req, res) => {
+  res.json({ message: "pass!" });
 });
 
 module.exports = router;
