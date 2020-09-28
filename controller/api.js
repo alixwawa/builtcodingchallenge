@@ -41,7 +41,9 @@ router.delete("/api/deletetransaction", (req, res) => {
   // console.log(req.body)
   Transaction.deleteOne(req.body)
     .then(dbTransaction => {
-      
+      // res.json(dbTransaction);
+      // console.log(dbTransaction)
+      console.log(res.json(dbTransaction))
       console.log("done")
     })
     .catch(err => {
